@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Dr. Junnu 💖</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", Arial, sans-serif;
+      background: linear-gradient(to bottom, #ffd1dc, #ffe6f0);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px);
+      border-radius: 30px;
+      padding: 55px 45px;
+      text-align: center;
+      width: 92%;
+      max-width: 680px;
+      box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.15);
+      position: relative;
+    }
+
+    h1 {
+      font-family: cursive;
+      font-size: 44px;
+      color: #c2185b;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    p {
+      font-size: 18px;
+      color: #7a1f3d;
+      margin-bottom: 25px;
+    }
+
+    .love-text {
+      font-size: 26px;
+      font-weight: bold;
+      color: #ff2f7d;
+      margin-bottom: 20px;
+      animation: glow 1.5s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0px 0px 5px #ff4d88; }
+      to { text-shadow: 0px 0px 18px #ff2f7d; }
+    }
+
+    .ring {
+      font-size: 45px;
+      animation: ringBounce 1.2s infinite alternate;
+      margin-bottom: 15px;
+    }
+
+    @keyframes ringBounce {
+      from { transform: translateY(0px) rotate(-5deg); }
+      to { transform: translateY(-10px) rotate(5deg); }
+    }
+
+    .btn {
+      padding: 14px 40px;
+      border: none;
+      border-radius: 35px;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.25s;
+      margin: 10px;
+    }
+
+    .yes {
+      background: #ff4d88;
+      color: white;
+      box-shadow: 0px 6px 20px rgba(255, 77, 136, 0.4);
+    }
+
+    .yes:hover {
+      transform: scale(1.12);
+    }
+
+    .no {
+      background: white;
+      color: #c2185b;
+      border: 2px solid #ff4d88;
+      position: absolute;
+      padding: 12px 30px;
+    }
+
+    .small-text {
+      font-size: 14px;
+      color: #8c1f4b;
+      margin-top: 25px;
+    }
+
+    /* Floating hearts */
+    .hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      animation: float 6s linear infinite;
+      opacity: 0.85;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    /* Confetti */
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 14px;
+      top: -20px;
+      animation: fall 3.5s linear infinite;
+      opacity: 0.85;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10px) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(360deg); }
+    }
+
+    /* Music button */
+    .music-btn {
+      background: #fff;
+      border: 2px solid #ff4d88;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 14px;
+      cursor: pointer;
+      color: #c2185b;
+      font-weight: bold;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+
+    .music-btn:hover {
+      transform: scale(1.08);
+      background: #ffe6f0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="hearts" id="hearts"></div>
+
+  <div class="card">
+    <div class="ring">💍</div>
+    <div class="love-text">I LOVE YOU DR. JUNNU 💖</div>
+
+    <h1>Dr. Junnu my wifeyy 💘<br>Will you be my Valentine?</h1>
+
+    <p>
+      I already know the answer...<br>
+      but I still want to hear it 🥺💗
+    </p>
+
+    <button class="btn yes" onclick="yesClicked()">Yes 💍💖</button>
+    <button class="btn no" id="noBtn">No 😌</button>
+
+    <br>
+    <button class="music-btn" onclick="playMusic()">🎶 Play Romantic Music</button>
+
+    <div class="small-text">
+      Forever yours,<br>
+      <b>Dinnu ❤️</b>
+    </div>
+  </div>
+
+  <!-- Music -->
+  <audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Floating hearts + sparkles
+    const heartsContainer = document.getElementById("hearts");
+    const heartEmojis = ["💗", "💖", "💘", "💕", "❤️", "✨", "😍"];
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+
+      heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 25 + 15 + "px";
+      heart.style.animationDuration = Math.random() * 2 + 4 + "s";
+
+      heartsContainer.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    setInterval(createHeart, 180);
+
+    // No button runs away FAST
+    const noBtn = document.getElementById("noBtn");
+
+    noBtn.style.top = "370px";
+    noBtn.style.left = "280px";
+
+    function moveNoButton() {
+      const card = document.querySelector(".card");
+      const cardRect = card.getBoundingClientRect();
+
+      const x = Math.random() * (cardRect.width - 140);
+      const y = Math.random() * (cardRect.height - 90);
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    noBtn.addEventListener("mouseover", moveNoButton);
+    noBtn.addEventListener("click", () => {
+      alert("Nice try Dr. Junnu 😌💗 No option is not available!");
+      moveNoButton();
+    });
+
+    // Confetti function
+    function startConfetti() {
+      for (let i = 0; i < 120; i++) {
+        const conf = document.createElement("div");
+        conf.classList.add("confetti");
+
+        conf.style.left = Math.random() * 100 + "vw";
+        conf.style.animationDuration = Math.random() * 2 + 2 + "s";
+        conf.style.opacity = Math.random();
+        conf.style.background = ["#ff4d88", "#ff99cc", "#ff2f7d", "#ffffff"][Math.floor(Math.random() * 4)];
+
+        document.body.appendChild(conf);
+
+        setTimeout(() => conf.remove(), 4000);
+      }
+    }
+
+    // Music play
+    function playMusic() {
+      const music = document.getElementById("bgMusic");
+      music.play();
+      alert("Awww 🥺💗 Romantic mode ON for Dr. Junnu!");
+    }
+
+    // Yes clicked
+    function yesClicked() {
+      startConfetti();
+      playMusic();
+
+      setTimeout(() => {
+        document.body.innerHTML = `
+          <div style="
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            flex-direction:column;
+            background:linear-gradient(to bottom, #ffd1dc, #ffe6f0);
+            font-family:Poppins, Arial, sans-serif;
+            text-align:center;
+            padding:30px;
+            overflow:hidden;">
+            
+            <h1 style="font-size:65px; color:#c2185b; font-family:cursive;">
+              YAYYYYY DR. JUNNU 😭💖💍
+            </h1>
+
+            <p style="font-size:24px; color:#7a1f3d; max-width:750px; line-height:1.6;">
+              You just made <b>Dinnu</b> the happiest person alive 🥺❤️<br><br>
+              Happy Valentine’s Day my love 💘✨<br><br>
+              Now you’re officially my Valentine AND my forever person 😭💕<br><br>
+              I promise to love you, annoy you, and pamper you for life 😌💖
+            </p>
+
+            <h2 style="margin-top:10px; font-size:40px; color:#ff4d88;">
+              💕💖💘💍❤️
+            </h2>
+
+            <p style="margin-top:20px; font-size:18px; color:#8c1f4b;">
+              With all my heart,<br>
+              <b>Dinnu ❤️</b>
+            </p>
+          </div>
+        `;
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
